@@ -19,13 +19,23 @@
   } //preload
 
   function create() {
+    //enables arcade physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
     //sound play
     // var music = game.add.audio("sound")
     // music.play();
-    
+
     game.add.image(0,0, "dirt");
     game.add.image(0,0, "bone");
     game.add.sprite(0,500, "dude");
+
+    platforms = game.add.group();
+    //enable physics on platform (gives collision to this item)
+    platforms.enableBody = true;
+    
+
+
 
   } //create
 
