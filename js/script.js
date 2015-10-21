@@ -10,8 +10,7 @@
   var background;
 
   function create() {
-    // game.stage.backgroundColor = '#333'
-    background = game.add.image(0, 0, "mainpage");
+    background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
     //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
     //button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
 
@@ -25,126 +24,153 @@
   }
 
   function startGame() {
-  //creates an instance of Phaser.Game object
-  // param width and height, render context,
-  var game = new Phaser.Game(1280,720, Phaser.AUTO, 'pump', {preload: preload, create: create, update: update});
+      //creates an instance of Phaser.Game object
+      // param width and height, render context,
+      var game = new Phaser.Game(1280,720, Phaser.AUTO, 'pump', {preload: preload, create: create, update: update});
 
-  function preload() {
-    //graphics
-    game.load.image('dirt', "assets/dirt.png");
-    game.load.image('bone', "assets/bones.png");
-    game.load.image('pumpkin', "assets/pumpkin.png");
+      function preload() {
+        //graphics
+        game.load.image('dirt', "assets/dirt.png");
+        game.load.image('bone', "assets/bones.png");
+        game.load.image('pumpkin', "assets/pumpkin.png");
 
-    //sprite
-    //params are pixel of width and height
-    game.load.spritesheet("zombie", "assets/zombie.png", 31, 52);
+        //sprite
+        //params are pixel of width and height
+        game.load.spritesheet("zombie", "assets/zombie.png", 31, 52);
 
-    //audio
-    game.load.audio("sound", "assets/8bit-thriller.mp3");
+        //audio
+        game.load.audio("sound", "assets/8bit-thriller.mp3");
 
-  } //preload
+      } //preload
 
-  // sets initial score to 0
-  var score = 0;
-  var scoreText;
+      // sets initial score to 0
+      var score = 0;
+      var scoreText;
+
+      var bg;
+
+      function create() {
+        //enables arcade physics system
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        //sound play
+        // var music = game.add.audio("sound")
+        // music.play();
+
+        game.add.image(0,0,'dirt')
+        // bg = game.add.tileSprite(0, 0, game.stage.bounds.width, game.cache.getImage("dirt").height, 'dirt');
+
+        //set graphics
+
+        platforms = game.add.group();
+        //enable physics on platform (gives collision to this item)
+        platforms.enableBody = true;
+
+        //creates ground, params are x-position, y-position, file
+        var ground = platforms.create(0, game.world.height - 40, "bone");
+
+        //immovable holds item in place, providing collision for ground after jumping
+        ground.body.immovable = true;
+
+        ground = platforms.create(375, game.world.height - 40, "bone");
+        ground.body.immovable = true;
+
+        ground = platforms.create(750, game.world.height - 40, "bone");
+        ground.body.immovable = true;
+
+        ground = platforms.create(1125, game.world.height - 40, "bone");
+        ground.body.immovable = true;
+
+        var ledge = platforms.create(Math.random()*1280, 550, "bone");
+        ledge.body.immovable = true;
+
+        ledge = platforms.create(Math.random()*1280, 550, "bone");
+        ledge.body.immovable = true;
+
+        ledge = platforms.create(Math.random()*1280, 425, "bone");
+        ledge.body.immovable = true;
+
+        ledge = platforms.create(Math.random()*1280, 100, "bone");
+        ledge.body.immovable = true;
+
+        //set player
+
+        player = game.add.sprite(32, game.world.height - 100, "zombie");
+
+        //enables physics for player
+        game.physics.arcade.enable(player);
+
+        //gives player physics properties
+        player.body.bounce.y = .4;
+        player.body.gravity.y = 600;
+        player.body.collideWorldBounds = true;
+
+        // Our animations for walking left and right
+        player.animations.add('left', [0,1,2,3], 10, true)
+        player.animations.add('right', [5,6,7,8], 10, true)
+
+        //this is controls, (arrow Keys)
+
+        //collect pumpkins
+        pumpkins = game.add.group()
+        pumpkins.enableBody = true;
+        for (var i = 0; i < 12; i++) {
+            var pumpkin = pumpkins.create(i*70,0, "pumpkin")
+            pumpkin.body.gravity.y = 125;
+            pumpkin.body.bounce.y = 0.4 + Math.random()*0.2;
+
+        }
+        scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
+      } //create
+
+      var jumpAmount;
+
+      function update(){
+        // bg.tilePosition.x -= 1;
+
+        cursors = game.input.keyboard.createCursorKeys()
+        //player will land on the platforms
+        game.physics.arcade.collide(player, platforms);
+        //pumpkins will land on the platforms
+        game.physics.arcade.collide(pumpkins, platforms);
+        //check to see if player and pumpkin overlap
+        game.physics.arcade.overlap(player, pumpkins, collectPumpkin, null, this);
+
+        player.body.velocity.x = 0;
+        //this is the movements for the sprite
+        if (cursors.left.isDown){
+            player.body.velocity.x = -100;
+
+            player.animations.play('left');
+        } else if (cursors.right.isDown){
+            player.body.velocity.x = 100;
+
+            player.animations.play('right');
+        } else {
+            player.animations.stop();
+            player.frame = 4;
+        }
+
+        // var onTheGround = player.body.touching.down;
+        // if (onTheGround) {
+        //   jumpAmount = 0;
+        // }
+
+        if (cursors.up.isDown && player.body.touching.down){
+            player.body.velocity.y = -400;
+        }
+
+      } //update
+
+      function collectPumpkin(player, pumpkin){
+        //removes pumpkin when player collides
+        pumpkin.kill();
+        score+=10;
+        scoreText.text = 'Score: ' + score;
+      }
+  } // startGame
 
 
 
-  function create() {
-    //enables arcade physics system
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    //sound play
-    // var music = game.add.audio("sound")
-    // music.play();
-
-    game.add.image(0, 0, "dirt");
-
-    //set graphics
-
-    platforms = game.add.group();
-    //enable physics on platform (gives collision to this item)
-    platforms.enableBody = true;
-
-    //creates ground, params are x-position, y-position, file
-    var ground = platforms.create(0, game.world.height - 40, "bone");
-
-
-    //immovable holds item in place, providing collision for ground after jumping
-    ground.body.immovable = true;
-
-    var ledge = platforms.create(500, 500, "bone");
-    ledge.body.immovable = true;
-
-    ledge = platforms.create(300, 300, "bone");
-    ledge.body.immovable = true;
-
-    //set player
-
-    player = game.add.sprite(32, game.world.height - 100, "zombie");
-
-    //enables physics for player
-    game.physics.arcade.enable(player);
-
-    //gives player physics properties
-    player.body.bounce.y = .2;
-    player.body.gravity.y = 300;
-    player.body.collideWorldBounds = true;
-
-    // Our animations for walking left and right
-    player.animations.add('left', [0,1,2,3], 10, true)
-    player.animations.add('right', [5,6,7,8], 10, true)
-
-    //this is controls, (arrow Keys)
-
-    //collect pumpkins
-    pumpkins = game.add.group()
-    pumpkins.enableBody = true;
-    for (var i = 0; i < 12; i++) {
-        var pumpkin = pumpkins.create(i*70,0, "pumpkin")
-        pumpkin.body.gravity.y = 125;
-        pumpkin.body.bounce.y = 0.4 + Math.random()*0.2;
-
-    }
-    scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
-  } //create
-
-  function update(){
-    cursors = game.input.keyboard.createCursorKeys()
-    //player will land on the platforms
-    game.physics.arcade.collide(player, platforms);
-    //pumpkins will land on the platforms
-    game.physics.arcade.collide(pumpkins, platforms);
-    //check to see if player and pumpkin overlap
-    game.physics.arcade.overlap(player, pumpkins, collectPumpkin, null, this);
-
-    player.body.velocity.x = 0;
-    //this is the movements for the sprite
-    if (cursors.left.isDown){
-        player.body.velocity.x = -100;
-
-        player.animations.play('left');
-    } else if (cursors.right.isDown){
-        player.body.velocity.x = 100;
-
-        player.animations.play('right');
-    } else {
-        player.animations.stop();
-        player.frame = 4;
-    }
-
-    if (cursors.up.isDown && player.body.touching.down){
-        player.body.velocity.y = -300;
-    }
-
-  } //update
-
-  function collectPumpkin(player, pumpkin){
-    //removes pumpkin when player collides
-    pumpkin.kill();
-    score+=10;
-    scoreText.text = 'Score: ' + score;
-  }
-} // startGame
 
 })();
