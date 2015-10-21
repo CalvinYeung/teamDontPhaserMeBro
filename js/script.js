@@ -10,7 +10,8 @@
   var background;
 
   function create() {
-    //background = game.add.image(0, 0, "mainpage");
+    // game.stage.backgroundColor = '#333'
+    background = game.add.image(0, 0, "mainpage");
     //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
     //button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
 
@@ -19,14 +20,14 @@
   };
 
   function actionOnClick() {
+    document.getElementById('game').innerHTML = ''
     startGame();
   }
-
 
   function startGame() {
   //creates an instance of Phaser.Game object
   // param width and height, render context,
-  var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
+  var game = new Phaser.Game(1280,720, Phaser.AUTO, 'pump', {preload: preload, create: create, update: update});
 
   function preload() {
     //graphics
