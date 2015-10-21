@@ -4,7 +4,7 @@
 
   function preload() {
     game.load.image('mainpage', "assets/main.png");
-    game.load.image('pumpkin', "/assets/pumpkin.png");
+    game.load.image('button', "/assets/button.png");
   };
 
   var background;
@@ -12,9 +12,8 @@
   function create() {
     background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
     //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-    //button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
-
-    var button = game.add.button(game.world.centerX - 95, 400, 'pumpkin', actionOnClick, this, 2, 1, 0);
+    game.add.text(175, 150, 'Dont Phaser Me Bro', {fontSize: '100px', fill: '#4A240D'});
+    var button = game.add.button(game.world.centerX - 105, 325, 'button', actionOnClick, this, 2, 1, 0);
 
   };
 
@@ -26,7 +25,7 @@
   function startGame() {
       //creates an instance of Phaser.Game object
       // param width and height, render context,
-      var game = new Phaser.Game(1280,720, Phaser.AUTO, 'pump', {preload: preload, create: create, update: update});
+      var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
 
       function preload() {
         //graphics
@@ -47,8 +46,6 @@
       var score = 0;
       var scoreText;
 
-      var bg;
-
       function create() {
         //enables arcade physics system
         game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -57,8 +54,9 @@
         // var music = game.add.audio("sound")
         // music.play();
 
-        game.add.image(0,0,'dirt')
-        // bg = game.add.tileSprite(0, 0, game.stage.bounds.width, game.cache.getImage("dirt").height, 'dirt');
+        //scrolling background
+        var intro = game.add.tileSprite(0, 0, 1280, 720, 'dirt');
+        intro.autoScroll(0, 25);
 
         //set graphics
 
@@ -90,8 +88,21 @@
         ledge = platforms.create(Math.random()*1280, 425, "bone");
         ledge.body.immovable = true;
 
-        ledge = platforms.create(Math.random()*1280, 100, "bone");
+        ledge = platforms.create((Math.random()*640)+ 100, 425, "bone");
         ledge.body.immovable = true;
+
+        ledge = platforms.create(Math.random()*1280, 300, "bone");
+        ledge.body.immovable = true;
+
+        ledge = platforms.create(Math.random()*1280, 300, "bone");
+        ledge.body.immovable = true;
+
+        ledge = platforms.create(Math.random()*1280, 175, "bone");
+        ledge.body.immovable = true;
+
+        ledge = platforms.create((Math.random()*640)+ 100, 175, "bone");
+        ledge.body.immovable = true;
+
 
         //set player
 
@@ -114,19 +125,19 @@
         //collect pumpkins
         pumpkins = game.add.group()
         pumpkins.enableBody = true;
-        for (var i = 0; i < 12; i++) {
-            var pumpkin = pumpkins.create(i*70,0, "pumpkin")
+
+        //number of pumpkins dropped
+        for (var i = 0; i < 14; i++) {
+            //params (spacing between pumpkins and y coordinate drop, file)
+            var pumpkin = pumpkins.create( i * 90 , Math.random()* 500, "pumpkin")
             pumpkin.body.gravity.y = 125;
             pumpkin.body.bounce.y = 0.4 + Math.random()*0.2;
-
         }
+
         scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
       } //create
 
-      var jumpAmount;
-
       function update(){
-        // bg.tilePosition.x -= 1;
 
         cursors = game.input.keyboard.createCursorKeys()
         //player will land on the platforms
@@ -139,11 +150,11 @@
         player.body.velocity.x = 0;
         //this is the movements for the sprite
         if (cursors.left.isDown){
-            player.body.velocity.x = -100;
+            player.body.velocity.x = -125;
 
             player.animations.play('left');
         } else if (cursors.right.isDown){
-            player.body.velocity.x = 100;
+            player.body.velocity.x = 125;
 
             player.animations.play('right');
         } else {
@@ -151,13 +162,8 @@
             player.frame = 4;
         }
 
-        // var onTheGround = player.body.touching.down;
-        // if (onTheGround) {
-        //   jumpAmount = 0;
-        // }
-
         if (cursors.up.isDown && player.body.touching.down){
-            player.body.velocity.y = -400;
+            player.body.velocity.y = -425;
         }
 
       } //update
