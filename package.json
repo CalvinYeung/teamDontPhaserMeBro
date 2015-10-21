@@ -1,0 +1,19 @@
+{
+  "name": "phaser-project",
+  "version": "1.0.0",
+  "description": "Mini group project creating a game using Phaser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalvinYeung/teamDontPhaserMeBro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalvinYeung/teamDontPhaserMeBro/issues"
+  },
+  "homepage": "https://github.com/CalvinYeung/teamDontPhaserMeBro#readme"
+}
