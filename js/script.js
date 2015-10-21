@@ -1,4 +1,29 @@
 (function(){
+
+  var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
+
+  function preload() {
+    game.load.image('mainpage', "assets/main.png");
+    game.load.image('pumpkin', "/assets/pumpkin.png");
+  };
+
+  var background;
+
+  function create() {
+    //background = game.add.image(0, 0, "mainpage");
+    //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
+    //button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
+
+    var button = game.add.button(game.world.centerX - 95, 400, 'pumpkin', actionOnClick, this, 2, 1, 0);
+
+  };
+
+  function actionOnClick() {
+    startGame();
+  }
+
+
+  function startGame() {
   //creates an instance of Phaser.Game object
   // param width and height, render context,
   var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
@@ -7,7 +32,6 @@
     //graphics
     game.load.image('dirt', "assets/dirt.png");
     game.load.image('bone', "assets/bones.png");
-    game.load.image('mainpage', "assets/main.png");
     game.load.image('pumpkin', "assets/pumpkin.png");
 
     //sprite
@@ -18,6 +42,12 @@
     game.load.audio("sound", "assets/8bit-thriller.mp3");
 
   } //preload
+
+  // sets initial score to 0
+  var score = 0;
+  var scoreText;
+
+
 
   function create() {
     //enables arcade physics system
@@ -38,8 +68,6 @@
     //creates ground, params are x-position, y-position, file
     var ground = platforms.create(0, game.world.height - 40, "bone");
 
-    //scales item (x, y)
-    ground.scale.setTo(2, 2);
 
     //immovable holds item in place, providing collision for ground after jumping
     ground.body.immovable = true;
@@ -67,7 +95,7 @@
     player.animations.add('right', [5,6,7,8], 10, true)
 
     //this is controls, (arrow Keys)
-    
+
     //collect pumpkins
     pumpkins = game.add.group()
     pumpkins.enableBody = true;
@@ -77,7 +105,7 @@
         pumpkin.body.bounce.y = 0.4 + Math.random()*0.2;
 
     }
-
+    scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
   } //create
 
   function update(){
@@ -112,7 +140,10 @@
 
   function collectPumpkin(player, pumpkin){
     //removes pumpkin when player collides
-    pumpkin.kill()
+    pumpkin.kill();
+    score+=10;
+    scoreText.text = 'Score: ' + score;
   }
+} // startGame
 
 })();
