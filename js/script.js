@@ -1,12 +1,12 @@
 (function(){
   //creates an instance of Phaser.Game object
   // param width and height, render context,
-  var game = new Phaser.Game(1000,600, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
+  var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
 
   function preload() {
-    //background and assets
+    //graphics
     game.load.image('dirt', "assets/dirt.png");
-    game.load.image('bone', "assets/bone.png");
+    game.load.image('bone', "assets/bones.png");
     game.load.image('mainpage', "assets/main.png");
 
     //sprite
@@ -19,9 +19,13 @@
   } //preload
 
   function create() {
-
-    game.add.image(0,0, "dirt")
-    game.add.sprite(0,500, "dude")
+    //sound play
+    // var music = game.add.audio("sound")
+    // music.play();
+    
+    game.add.image(0,0, "dirt");
+    game.add.image(0,0, "bone");
+    game.add.sprite(0,500, "dude");
 
   } //create
 
