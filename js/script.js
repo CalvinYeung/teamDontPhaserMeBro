@@ -8,6 +8,7 @@
     game.load.image('dirt', "assets/dirt.png");
     game.load.image('bone', "assets/bones.png");
     game.load.image('mainpage', "assets/main.png");
+    game.load.image('pumpkin', "assets/pumpkin.png");
 
     //sprite
     //params are pixel of width and height
@@ -67,12 +68,26 @@
 
     //this is controls, (arrow Keys)
     
+    //collect pumpkins
+    pumpkins = game.add.group()
+    pumpkins.enableBody = true;
+    for (var i = 0; i < 12; i++) {
+        var pumpkin = pumpkins.create(i*70,0, "pumpkin")
+        pumpkin.body.gravity.y = 125;
+        pumpkin.body.bounce.y = 0.4 + Math.random()*0.2;
+
+    }
+
   } //create
 
   function update(){
-cursors = game.input.keyboard.createCursorKeys()
-    
+    cursors = game.input.keyboard.createCursorKeys()
+    //player will land on the platforms
     game.physics.arcade.collide(player, platforms);
+    //pumpkins will land on the platforms
+    game.physics.arcade.collide(pumpkins, platforms);
+    //check to see if player and pumpkin overlap
+    game.physics.arcade.overlap(player, pumpkins, collectPumpkin, null, this);
 
     player.body.velocity.x = 0;
     //this is the movements for the sprite
@@ -90,10 +105,14 @@ cursors = game.input.keyboard.createCursorKeys()
     }
 
     if (cursors.up.isDown && player.body.touching.down){
-        player.body.velocity.y = -500;
+        player.body.velocity.y = -300;
     }
 
   } //update
 
+  function collectPumpkin(player, pumpkin){
+    //removes pumpkin when player collides
+    pumpkin.kill()
+  }
 
 })();
