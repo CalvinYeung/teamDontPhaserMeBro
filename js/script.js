@@ -186,7 +186,7 @@
         }
       }
 
-     var timer = 5
+     var timer = 30
      var myInterval = setInterval(function() {
         timer --
         console.log(timer)
