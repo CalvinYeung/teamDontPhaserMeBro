@@ -183,15 +183,18 @@
         timer --
         console.log(timer)
         TimerText.text = 'Timer ' + timer
+        if (timer == 0) {
+          alert("Game over");
+          gameOver();
+        }
      },1000)
-    if (timer == 0) {
-      alert("Game over");
-      game.destroy();
-    }
-    function gameOver() {
-      game.destroy();
-    }
+
+     function gameOver() {
+       game.destroy();
+
+     }
   } // startGame
+
 
 
 
