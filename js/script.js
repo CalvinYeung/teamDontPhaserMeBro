@@ -205,7 +205,7 @@
           console.log(gameEnd)
           // location.reload()
           document.getElementById('game').innerHTML = ''
-          window.onload = gameEnd();
+          window.onload = gameEnd()
         }
      },1000)
 
