@@ -184,9 +184,16 @@
             player.frame = 4;
         }
 
-        if (cursors.up.isDown && player.body.touching.down){
-            player.body.velocity.y = -425;
-        }
+        if ( player.body.touching.down ) {
+            jumpTimes = 0;
+            }
+      
+        if ( game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            player.body.velocity.y = -650;
+       
+            }
+
+        
 
       } //update
 
@@ -204,7 +211,7 @@
         }
       }
 
-     var timer = 5
+     var timer = 50
 
      var myInterval = setInterval(function() {
         timer --
