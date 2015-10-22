@@ -15,8 +15,6 @@
 
     function create() {
       background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
-      //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-
       game.add.image(80, 175, 'title').scale.setTo(0.5,0.5);
       var button = game.add.button(game.world.centerX - 105, 325, 'button', actionOnClick, this, 2, 1, 0);
 
