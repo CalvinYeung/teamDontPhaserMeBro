@@ -188,12 +188,11 @@
       alert("Game over");
       game.destroy();
     }
+    function gameOver() {
+      game.destroy();
+    }
   } // startGame
 
-  function gameOver() {
-    game.destroy();
-
-  }
 
 
 
