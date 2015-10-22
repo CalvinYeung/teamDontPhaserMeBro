@@ -186,10 +186,10 @@
         score+=10;
         scoreText.text = 'Score: ' + score;
         if(score === 140){
-          document.getElementById('game').innerHTML = ''
           clearTimer();
           restart = true;
           // location.reload()
+          document.getElementById('game').innerHTML = ''
           gameEnd();
         }
       }
