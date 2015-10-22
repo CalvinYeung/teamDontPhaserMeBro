@@ -178,15 +178,23 @@
         scoreText.text = 'Score: ' + score;
       }
 
-
-     var timer = 60
+     var timer = 30
      setInterval(function(){
         timer --
         console.log(timer)
         TimerText.text = 'Timer ' + timer
      },1000)
-
+    if (timer == 0) {
+      alert("Game over");
+      game.destroy();
+    }
   } // startGame
+
+  function gameOver() {
+    game.destroy();
+
+  }
+
 
 
 })();
