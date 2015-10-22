@@ -191,10 +191,9 @@
 
      function gameOver() {
        game.destroy();
-
+       gameEnd = true;
      }
   } // startGame
-
 
 
 
