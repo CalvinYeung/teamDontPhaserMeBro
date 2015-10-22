@@ -31,7 +31,7 @@
       function preload() {
         //graphics
         game.load.image('dirt', "assets/dirt.png");
-        game.load.image('bone', "assets/bones.png");
+        game.load.image('bone', "assets/platform.png");
         game.load.image('pumpkin', "assets/pumpkin.png");
 
         //sprite
