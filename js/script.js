@@ -33,7 +33,7 @@
       function preload() {
         //graphics
         game.load.image('dirt', "assets/dirt.png");
-        game.load.image('bone', "assets/platform.png");
+        game.load.image('bone', "/assets/platform.png");
         game.load.image('pumpkin', "assets/pumpkin.png");
 
         //sprite
@@ -184,19 +184,19 @@
         }
       }
 
-    //  var timer = 5
-    //  setInterval(function(){
-    //     timer --
-    //     console.log(timer)
-    //     TimerText.text = 'Timer ' + timer
-    //     if (timer == 0) {
-    //       // alert("you lose")
-    //       // location.reload()
-    //       document.getElementById('game').innerHTML = ''
-    //       timer = 5
-    //       window.onload = gameEnd();
-    //     }
-    //  },1000)
+     var timer = 5
+     setInterval(function(){
+        timer --
+        console.log(timer)
+        TimerText.text = 'Timer ' + timer
+        if (timer == 0) {
+          // alert("you lose")
+          // location.reload()
+          document.getElementById('game').innerHTML = ''
+          timer = 5
+          window.onload = gameEnd();
+        }
+     },1000)
 
   } // startGame
 
