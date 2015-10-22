@@ -38,6 +38,7 @@
         game.load.image('dirt', "./assets/dirt.png");
         game.load.image('bone', "./assets/platform.png");
         game.load.image('pumpkin', "./assets/pumpkin.png");
+        game.load.image('corn', "./assets/candycorn.png");
 
         //sprite
         //params are pixel of width and height
@@ -136,11 +137,21 @@
         pumpkins.enableBody = true;
 
         //number of pumpkins dropped
-        for (var i = 0; i < 14; i++) {
+        for (var i = 0; i < 10; i++) {
             //params (spacing between pumpkins and y coordinate drop, file)
-            var pumpkin = pumpkins.create( i * 90 , Math.random()* 500, "pumpkin")
+            var pumpkin = pumpkins.create( i * 120 , Math.random()* 500, "pumpkin")
             pumpkin.body.gravity.y = 125;
             pumpkin.body.bounce.y = 0.4 + Math.random()*0.2;
+        }
+
+        corns = game.add.group()
+        corns.enableBody = true;
+
+        for (var i = 0; i < 10; i++) {
+            //params (spacing between pumpkins and y coordinate drop, file)
+            var corn = corns.create( i * 130 , Math.random()* 500, "corn")
+            corn.body.gravity.y = 125;
+            corn.body.bounce.y = 0.4 + Math.random()*0.2;
         }
 
         scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
@@ -155,8 +166,13 @@
         game.physics.arcade.collide(player, platforms);
         //pumpkins will land on the platforms
         game.physics.arcade.collide(pumpkins, platforms);
+
+        game.physics.arcade.collide(corns, platforms);
         //check to see if player and pumpkin overlap
         game.physics.arcade.overlap(player, pumpkins, collectPumpkin, null, this);
+
+        game.physics.arcade.overlap(player, corns, collectCorn, null, this);
+
 
         player.body.velocity.x = 0;
         //this is the movements for the sprite
@@ -193,9 +209,21 @@
       function collectPumpkin(player, pumpkin){
         //removes pumpkin when player collides
         pumpkin.kill();
+        score+=5;
+        scoreText.text = 'Score: ' + score;
+        scoring()
+      }
+
+      function collectCorn(player, corn){
+        //removes pumpkin when player collides
+        corn.kill();
         score+=10;
         scoreText.text = 'Score: ' + score;
-        if(score === 140){
+        scoring()
+      }
+
+      function scoring(){
+        if(score === 150){
           clearTimer();
           restart = true;
           // location.reload()
@@ -203,7 +231,6 @@
           gameEnd();
         }
       }
-
 
      var timer = 31
 
