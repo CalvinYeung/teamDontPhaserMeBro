@@ -2,10 +2,16 @@
 
   var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
 
+  gameEnd = false;
+  restart = false;
+
   function preload() {
     game.load.image('mainpage', "assets/main.png");
     game.load.image('button', "/assets/button.png");
     game.load.image('title', "assets/title.png");
+    game.load.image('over', "assets/gameover.png");
+    game.load.image('lose', "assets/lose.png");
+    game.load.image('win', "assets/win.png");
   };
 
   var background;
@@ -13,9 +19,18 @@
   function create() {
     background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
     //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
+    if (gameEnd == true){
+     game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
+     game.add.image(680, 100, 'lose').scale.setTo(0.5,0.5);
+     var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
+   } else if (restart == true) {
+     game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
+     game.add.image(680, 100, 'win').scale.setTo(0.5,0.5);
+     var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
+   } else {
     game.add.image(80, 175, 'title').scale.setTo(0.5,0.5);
     var button = game.add.button(game.world.centerX - 105, 325, 'button', actionOnClick, this, 2, 1, 0);
-
+   }
   };
 
   function actionOnClick() {
@@ -183,11 +198,13 @@
         if(score === 140){
           document.getElementById('game').innerHTML = ''
           clearTimer();
-          window.onload = restart();
+          restart = true;
+          location.reload()
+          // window.onload = restart();
         }
       }
 
-     var timer = 60
+     var timer = 5
 
      var myInterval = setInterval(function() {
         timer --
@@ -195,10 +212,11 @@
         TimerText.text = 'Timer ' + timer
         if (timer == 0) {
           // alert("you lose")
-          // location.reload()
           clearTimer();
-          document.getElementById('game').innerHTML = ''
-          window.onload = gameEnd();
+          location.reload()
+          gameEnd = true;
+          // document.getElementById('game').innerHTML = ''
+          // window.onload = gameEnd();
         }
      },1000)
 
@@ -206,55 +224,55 @@
        clearInterval(myInterval)
      }
 
-     function gameEnd(){
-       var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
-
-       function preload() {
-         game.load.image('mainpage', "assets/main.png");
-         game.load.image('again', "/assets/again.png");
-         game.load.image('over', "assets/gameover.png");
-         game.load.image('lose', "assets/lose.png");
-       };
-
-       function create() {
-         background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
-         //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-         game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
-         game.add.image(680, 100, 'lose').scale.setTo(0.5,0.5);
-         var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
-       };
-
-       function actionOnClick() {
-         document.getElementById('game').innerHTML = ''
-         game.destroy();
-         window.onload= startGame();
-       }
-     }
-
-     function restart(){
-       var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
-
-       function preload() {
-         game.load.image('mainpage', "assets/main.png");
-         game.load.image('again', "/assets/again.png");
-         game.load.image('over', "assets/gameover.png");
-         game.load.image('win', "assets/win.png");
-       };
-
-       function create() {
-         background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
-         //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-         game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
-         game.add.image(680, 100, 'win').scale.setTo(0.5,0.5);
-         var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
-       };
-
-       function actionOnClick() {
-         document.getElementById('game').innerHTML = ''
-         game.destroy();
-         window.onload= startGame();
-       }
-     }
+    //  function gameEnd(){
+    //    var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
+     //
+    //    function preload() {
+    //      game.load.image('mainpage', "assets/main.png");
+    //      game.load.image('again', "/assets/again.png");
+    //      game.load.image('over', "assets/gameover.png");
+    //      game.load.image('lose', "assets/lose.png");
+    //    };
+     //
+    //    function create() {
+    //      background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
+    //      //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
+    //      game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
+    //      game.add.image(680, 100, 'lose').scale.setTo(0.5,0.5);
+    //      var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
+    //    };
+     //
+    //    function actionOnClick() {
+    //      document.getElementById('game').innerHTML = ''
+    //      game.destroy();
+    //      window.onload= startGame();
+    //    }
+    //  }
+     //
+    //  function restart(){
+    //    var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
+     //
+    //    function preload() {
+    //      game.load.image('mainpage', "assets/main.png");
+    //      game.load.image('again', "/assets/again.png");
+    //      game.load.image('over', "assets/gameover.png");
+    //      game.load.image('win', "assets/win.png");
+    //    };
+     //
+    //    function create() {
+    //      background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
+    //      //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
+    //      game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
+    //      game.add.image(680, 100, 'win').scale.setTo(0.5,0.5);
+    //      var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
+    //    };
+     //
+    //    function actionOnClick() {
+    //      document.getElementById('game').innerHTML = ''
+    //      game.destroy();
+    //      window.onload= startGame();
+    //    }
+    //  }
   } // startGame
 
 })();
