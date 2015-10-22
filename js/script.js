@@ -163,11 +163,11 @@
         player.body.velocity.x = 0;
         //this is the movements for the sprite
         if (cursors.left.isDown){
-            player.body.velocity.x = -420;
+            player.body.velocity.x = -200;
 
             player.animations.play('left');
         } else if (cursors.right.isDown){
-            player.body.velocity.x = 420;
+            player.body.velocity.x = 200;
 
             player.animations.play('right');
         } else {
