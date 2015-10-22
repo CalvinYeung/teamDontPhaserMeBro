@@ -3,12 +3,12 @@
     var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
 
     function preload() {
-      game.load.image('mainpage', "assets/main.png");
-      game.load.image('button', "assets/button.png");
-      game.load.image('title', "assets/title.png");
-      game.load.image('over', "assets/gameover.png");
-      game.load.image('lose', "assets/lose.png");
-      game.load.image('win', "assets/win.png");
+      game.load.image('mainpage', "./assets/main.png");
+      game.load.image('button', "./assets/button.png");
+      game.load.image('title', "./assets/title.png");
+      game.load.image('over', "./assets/gameover.png");
+      game.load.image('lose', "./assets/lose.png");
+      game.load.image('win', "./assets/win.png");
     };
 
     var background;
@@ -37,16 +37,16 @@
 
       function preload() {
         //graphics
-        game.load.image('dirt', "assets/dirt.png");
-        game.load.image('bone', "/assets/platform.png");
-        game.load.image('pumpkin', "assets/pumpkin.png");
+        game.load.image('dirt', "./assets/dirt.png");
+        game.load.image('bone', "./assets/platform.png");
+        game.load.image('pumpkin', "./assets/pumpkin.png");
 
         //sprite
         //params are pixel of width and height
-        game.load.spritesheet("zombie", "assets/zombie.png", 31, 52);
+        game.load.spritesheet("zombie", "./assets/zombie.png", 31, 52);
 
         //audio
-        game.load.audio("sound", "assets/8bit-thriller.mp3");
+        game.load.audio("sound", "./assets/8bit-thriller.mp3");
 
       } //preload
 
@@ -233,11 +233,11 @@
        var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
 
        function preload() {
-         game.load.image('mainpage', "assets/main.png");
-         game.load.image('again', "/assets/again.png");
-         game.load.image('over', "assets/gameover.png");
-         game.load.image('lose', "assets/lose.png");
-         game.load.image('win', "assets/win.png");
+         game.load.image('mainpage', "./assets/main.png");
+         game.load.image('again', "./assets/again.png");
+         game.load.image('over', "./assets/gameover.png");
+         game.load.image('lose', "./assets/lose.png");
+         game.load.image('win', "./assets/win.png");
        };
 
        function create() {
