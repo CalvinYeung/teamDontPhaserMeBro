@@ -21,7 +21,9 @@
   function actionOnClick() {
     document.getElementById('game').innerHTML = ''
     startGame();
-  }
+  };
+
+
 
 
 
@@ -185,19 +187,24 @@
       }
 
      var timer = 5
-     setInterval(function(){
+
+     var myInterval = setInterval(function() {
         timer --
         console.log(timer)
         TimerText.text = 'Timer ' + timer
         if (timer == 0) {
           // alert("you lose")
           // location.reload()
+          clearTimer();
           document.getElementById('game').innerHTML = ''
-          timer = 5
-          window.onload = gameEnd();
+
+          window.onload= gameEnd();
         }
      },1000)
 
+     var clearTimer = function(){
+       clearInterval(myInterval)
+     }
   } // startGame
 
 
@@ -223,7 +230,6 @@
       window.onload= startGame();
     }
   }
-
 
 
 })();
