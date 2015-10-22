@@ -203,7 +203,7 @@
 
 
      var timer = 60
->>>>>>> cab49b6d129d9a8c1cdb5ee8a890b926b0ad37b5
+
 
      var myInterval = setInterval(function() {
         timer --
