@@ -74,17 +74,20 @@
 
         //creates ground, params are x-position, y-position, file
        var ground = platforms.create(0, game.world.height - 40, "bone");
-
+       ground.scale.setTo(2,2)
        //immovable holds item in place, providing collision for ground after jumping
        ground.body.immovable = true;
 
        ground = platforms.create(375, game.world.height - 40, "bone");
+       ground.scale.setTo(2,2)
        ground.body.immovable = true;
 
        ground = platforms.create(750, game.world.height - 40, "bone");
+       ground.scale.setTo(2,2)
        ground.body.immovable = true;
 
        ground = platforms.create(1125, game.world.height - 40, "bone");
+       ground.scale.setTo(2,2)
        ground.body.immovable = true;
 
        var ledge = platforms.create(Math.random()*320, 550, "bone");
@@ -114,13 +117,13 @@
 
        //set player
 
-       player = game.add.sprite(32, game.world.height - 100, "zombie");
-
+       player = game.add.sprite(32, game.world.height - 150, "zombie");
+       player.scale.setTo(1.5,1.5)
        //enables physics for player
        game.physics.arcade.enable(player);
 
        //gives player physics properties
-       player.body.bounce.y = .2;
+        player.body.bounce.y = .2;
         player.body.gravity.y = 600;
         player.body.collideWorldBounds = true;
 
@@ -160,11 +163,11 @@
         player.body.velocity.x = 0;
         //this is the movements for the sprite
         if (cursors.left.isDown){
-            player.body.velocity.x = -125;
+            player.body.velocity.x = -420;
 
             player.animations.play('left');
         } else if (cursors.right.isDown){
-            player.body.velocity.x = 125;
+            player.body.velocity.x = 420;
 
             player.animations.play('right');
         } else {
@@ -177,8 +180,10 @@
             }
 
         if ( game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            player.body.velocity.y = -650;
-
+            jumpTimes ++
+              if (jumpTimes <= 2){
+               player.body.velocity.y = -650;
+              }
             }
 
 
