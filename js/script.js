@@ -182,11 +182,12 @@
         scoreText.text = 'Score: ' + score;
         if(score === 140){
           document.getElementById('game').innerHTML = ''
+          clearTimer();
           window.onload = restart();
         }
       }
 
-     var timer = 5
+     var timer = 60
 
      var myInterval = setInterval(function() {
         timer --
