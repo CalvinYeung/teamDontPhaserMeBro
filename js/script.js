@@ -21,7 +21,9 @@
   function actionOnClick() {
     document.getElementById('game').innerHTML = ''
     startGame();
-  }
+  };
+
+
 
   function startGame() {
       //creates an instance of Phaser.Game object
@@ -195,10 +197,6 @@
 
      }
   } // startGame
-
-
-
-
 
 
 })();
