@@ -186,15 +186,17 @@
         TimerText.text = 'Timer ' + timer
         if (timer == 0) {
           alert("Game over");
-          game.destroy();
+          gameOver();
         }
      },1000)
+
+     function gameOver() {
+       game.destroy();
+
+     }
   } // startGame
 
-  function gameOver() {
-    game.destroy();
 
-  }
 
 
 
