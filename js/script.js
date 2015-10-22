@@ -1,28 +1,31 @@
 (function(){
 
-  var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
+    var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
 
-  function preload() {
-    game.load.image('mainpage', "assets/main.png");
-    game.load.image('button', "/assets/button.png");
-    game.load.image('title', "assets/title.png");
-  };
+    function preload() {
+      game.load.image('mainpage', "./assets/main.png");
+      game.load.image('button', "./assets/button.png");
+      game.load.image('title', "./assets/title.png");
+      game.load.image('over', "./assets/gameover.png");
+      game.load.image('lose', "./assets/lose.png");
+      game.load.image('win', "./assets/win.png");
+    };
 
-  var background;
+    var background;
 
-  function create() {
-    background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
-    //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-    game.add.image(80, 175, 'title').scale.setTo(0.5,0.5);
-    var button = game.add.button(game.world.centerX - 105, 325, 'button', actionOnClick, this, 2, 1, 0);
+    function create() {
+      background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
+      //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
 
-  };
+      game.add.image(80, 175, 'title').scale.setTo(0.5,0.5);
+      var button = game.add.button(game.world.centerX - 105, 325, 'button', actionOnClick, this, 2, 1, 0);
 
-  function actionOnClick() {
-    document.getElementById('game').innerHTML = ''
-    startGame();
-  };
+    };
 
+    function actionOnClick() {
+      document.getElementById('game').innerHTML = ''
+      window.onload = startGame();
+    };
 
 
 
@@ -34,16 +37,16 @@
 
       function preload() {
         //graphics
-        game.load.image('dirt', "assets/dirt.png");
-        game.load.image('bone', "assets/platform.png");
-        game.load.image('pumpkin', "assets/pumpkin.png");
+        game.load.image('dirt', "./assets/dirt.png");
+        game.load.image('bone', "./assets/platform.png");
+        game.load.image('pumpkin', "./assets/pumpkin.png");
 
         //sprite
         //params are pixel of width and height
-        game.load.spritesheet("zombie", "assets/zombie.png", 31, 52);
+        game.load.spritesheet("zombie", "./assets/zombie.png", 31, 52);
 
         //audio
-        game.load.audio("sound", "assets/8bit-thriller.mp3");
+        game.load.audio("sound", "./assets/8bit-thriller.mp3");
 
       } //preload
 
@@ -56,8 +59,8 @@
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //sound play
-        // var music = game.add.audio("sound")
-        // music.play();
+        var music = game.add.audio("sound")
+        music.play();
 
         //scrolling background
         var intro = game.add.tileSprite(0, 0, 1280, 720, 'dirt');
@@ -71,17 +74,20 @@
 
         //creates ground, params are x-position, y-position, file
        var ground = platforms.create(0, game.world.height - 40, "bone");
-
+       ground.scale.setTo(2,2)
        //immovable holds item in place, providing collision for ground after jumping
        ground.body.immovable = true;
 
        ground = platforms.create(375, game.world.height - 40, "bone");
+       ground.scale.setTo(2,2)
        ground.body.immovable = true;
 
        ground = platforms.create(750, game.world.height - 40, "bone");
+       ground.scale.setTo(2,2)
        ground.body.immovable = true;
 
        ground = platforms.create(1125, game.world.height - 40, "bone");
+       ground.scale.setTo(2,2)
        ground.body.immovable = true;
 
        var ledge = platforms.create(Math.random()*320, 550, "bone");
@@ -111,13 +117,13 @@
 
        //set player
 
-       player = game.add.sprite(32, game.world.height - 100, "zombie");
-
+       player = game.add.sprite(32, game.world.height - 150, "zombie");
+       player.scale.setTo(1.5,1.5)
        //enables physics for player
        game.physics.arcade.enable(player);
 
        //gives player physics properties
-       player.body.bounce.y = .2;
+        player.body.bounce.y = .2;
         player.body.gravity.y = 600;
         player.body.collideWorldBounds = true;
 
@@ -157,11 +163,11 @@
         player.body.velocity.x = 0;
         //this is the movements for the sprite
         if (cursors.left.isDown){
-            player.body.velocity.x = -125;
+            player.body.velocity.x = -200;
 
             player.animations.play('left');
         } else if (cursors.right.isDown){
-            player.body.velocity.x = 125;
+            player.body.velocity.x = 200;
 
             player.animations.play('right');
         } else {
@@ -169,11 +175,22 @@
             player.frame = 4;
         }
 
-        if (cursors.up.isDown && player.body.touching.down){
-            player.body.velocity.y = -425;
-        }
+        if ( player.body.touching.down ) {
+            jumpTimes = 0;
+            }
+
+        if ( game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            jumpTimes ++
+              if (jumpTimes <= 2){
+               player.body.velocity.y = -450;
+              }
+            }
+
+
 
       } //update
+      var restart = false;
+      var gameOver = false;
 
       function collectPumpkin(player, pumpkin){
         //removes pumpkin when player collides
@@ -181,22 +198,33 @@
         score+=10;
         scoreText.text = 'Score: ' + score;
         if(score === 140){
+          clearTimer();
+          restart = true;
+          // location.reload()
           document.getElementById('game').innerHTML = ''
-          window.onload = gameEnd();
+          gameEnd();
         }
       }
 
+<<<<<<< HEAD
      var timer = 30
+=======
+
+     var timer = 31
+
+
+>>>>>>> 1598acb0b5250ed13b26f8dcc699e41d8519415a
      var myInterval = setInterval(function() {
         timer --
         console.log(timer)
         TimerText.text = 'Timer ' + timer
         if (timer == 0) {
           // alert("you lose")
-          // location.reload()
+          gameOver = true;
           clearTimer();
+          console.log(gameOver)
+          // location.reload()
           document.getElementById('game').innerHTML = ''
-
           gameEnd();
         }
      },1000)
@@ -205,33 +233,37 @@
        clearInterval(myInterval)
      }
 
-
      function gameEnd(){
-
-
        var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
 
        function preload() {
-         game.load.image('mainpage', "assets/main.png");
-         game.load.image('again', "/assets/again.png");
-         game.load.image('over', "assets/gameover.png");
+         game.load.image('mainpage', "./assets/main.png");
+         game.load.image('again', "./assets/again.png");
+         game.load.image('over', "./assets/gameover.png");
+         game.load.image('lose', "./assets/lose.png");
+         game.load.image('win', "./assets/win.png");
        };
 
        function create() {
          background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
          //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-         game.add.image(80, 175, 'over').scale.setTo(0.5,0.5);
+         if (gameOver == true){
+         game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
+         game.add.image(680, 100, 'lose').scale.setTo(0.5,0.5);
          var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
-
+       } else if (restart == true){
+         game.add.image(80, 100, 'over').scale.setTo(0.5,0.5);
+          game.add.image(680, 100, 'win').scale.setTo(0.5,0.5);
+          var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
+       }
        };
 
        function actionOnClick() {
          document.getElementById('game').innerHTML = ''
          game.destroy();
-         startGame();
+         window.onload= startGame();
        }
      }
   } // startGame
-
 
 })();
