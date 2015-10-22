@@ -135,7 +135,7 @@
         }
 
         scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
-        
+
         TimerText = game.add.text(16, 38, 'Timer: 0', {fill: '#FFF'});
       } //create
 
@@ -176,15 +176,24 @@
         score+=10;
         scoreText.text = 'Score: ' + score;
       }
-     
 
-     var timer = 60
+
+     var timer = 5
      setInterval(function(){
         timer --
         console.log(timer)
-        TimerText.text = 'Timer ' + timer 
+        TimerText.text = 'Timer ' + timer
+        if (timer == 0) {
+          alert("Game over");
+          game.destroy();
+        }
      },1000)
   } // startGame
+
+  function gameOver() {
+    game.destroy();
+
+  }
 
 
 
