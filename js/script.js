@@ -24,6 +24,7 @@
   }
 
 
+
   function startGame() {
       //creates an instance of Phaser.Game object
       // param width and height, render context,
@@ -178,48 +179,50 @@
         score+=10;
         scoreText.text = 'Score: ' + score;
         if(score === 140){
-          alert("You win")
-          location.reload()
+          document.getElementById('game').innerHTML = ''
+          window.onload = gameEnd();
         }
       }
 
-     var timer = 5
-     setInterval(function(){
-        timer --
-        console.log(timer)
-        TimerText.text = 'Timer ' + timer
-        if (timer == 0) {
-          // alert("you lose")
-          // location.reload()
-          document.getElementById('game').innerHTML = ''
-          gameEnd();
-        }
-     },1000)
+    //  var timer = 5
+    //  setInterval(function(){
+    //     timer --
+    //     console.log(timer)
+    //     TimerText.text = 'Timer ' + timer
+    //     if (timer == 0) {
+    //       // alert("you lose")
+    //       // location.reload()
+    //       document.getElementById('game').innerHTML = ''
+    //       timer = 5
+    //       window.onload = gameEnd();
+    //     }
+    //  },1000)
 
-     function gameEnd(){
-       var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
-
-       function preload() {
-         game.load.image('mainpage', "assets/main.png");
-         game.load.image('again', "/assets/again.png");
-         game.load.image('over', "assets/gameover.png");
-       };
-
-       function create() {
-         background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
-         //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
-         game.add.image(80, 175, 'over').scale.setTo(0.5,0.5);
-         var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
-
-       };
-
-       function actionOnClick() {
-         document.getElementById('game').innerHTML = ''
-         startGame();
-       }
-     }
   } // startGame
 
+
+  function gameEnd(){
+    var game = new Phaser.Game(1280,720, Phaser.AUTO, 'game', {preload: preload, create: create});
+
+    function preload() {
+      game.load.image('mainpage', "assets/main.png");
+      game.load.image('again', "/assets/again.png");
+      game.load.image('over', "assets/gameover.png");
+    };
+
+    function create() {
+      background = game.add.image(0, 0, "mainpage").scale.setTo(1.25,1);
+      //var start = game.add.text(16, 16, 'Start Game', {fill: '#FFF'});
+      game.add.image(80, 175, 'over').scale.setTo(0.5,0.5);
+      var button = game.add.button(game.world.centerX - 105, 325, 'again', actionOnClick, this, 2, 1, 0);
+
+    };
+
+    function actionOnClick() {
+      document.getElementById('game').innerHTML = ''
+      window.onload= startGame();
+    }
+  }
 
 
 
