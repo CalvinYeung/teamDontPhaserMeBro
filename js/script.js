@@ -223,6 +223,7 @@
          game.load.image('again', "/assets/again.png");
          game.load.image('over', "assets/gameover.png");
          game.load.image('lose', "assets/lose.png");
+         game.load.image('win', "assets/win.png");
        };
 
        function create() {
