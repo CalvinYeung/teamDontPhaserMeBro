@@ -178,17 +178,20 @@
         pumpkin.kill();
         score+=10;
         scoreText.text = 'Score: ' + score;
+        if(score === 140){
+          alert("You win")
+          location.reload()
+        }
       }
 
-
-     var timer = 30
+     var timer = 60
      setInterval(function(){
         timer --
         console.log(timer)
         TimerText.text = 'Timer ' + timer
         if (timer == 0) {
-          alert("Game over");
-          gameOver();
+          alert("you lose")
+          location.reload()
         }
      },1000)
 
@@ -197,6 +200,5 @@
 
      }
   } // startGame
-
 
 })();
