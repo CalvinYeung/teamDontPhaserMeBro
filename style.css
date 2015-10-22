@@ -1,4 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Nosifer);
+
 body {
   background-color: #000;
   margin:0 auto;
+  font-family: 'Nosifer';
 }
