@@ -135,6 +135,8 @@
         }
 
         scoreText = game.add.text(16, 16, 'Score: 0', {fill: '#FFF'});
+        
+        TimerText = game.add.text(16, 38, 'Timer: 0', {fill: '#FFF'});
       } //create
 
       function update(){
@@ -174,6 +176,14 @@
         score+=10;
         scoreText.text = 'Score: ' + score;
       }
+     
+
+     var timer = 60
+     setInterval(function(){
+        timer --
+        console.log(timer)
+        TimerText.text = 'Timer ' + timer 
+     },1000)
   } // startGame
 
 
