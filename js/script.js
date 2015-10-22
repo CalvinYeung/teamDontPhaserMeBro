@@ -207,7 +207,7 @@
       }
 
 
-     var timer = 41
+     var timer = 31
 
 
      var myInterval = setInterval(function() {
