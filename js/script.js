@@ -70,54 +70,54 @@
         platforms.enableBody = true;
 
         //creates ground, params are x-position, y-position, file
-        var ground = platforms.create(0, game.world.height - 40, "bone");
+       var ground = platforms.create(0, game.world.height - 40, "bone");
 
-        //immovable holds item in place, providing collision for ground after jumping
-        ground.body.immovable = true;
+       //immovable holds item in place, providing collision for ground after jumping
+       ground.body.immovable = true;
 
-        ground = platforms.create(375, game.world.height - 40, "bone");
-        ground.body.immovable = true;
+       ground = platforms.create(375, game.world.height - 40, "bone");
+       ground.body.immovable = true;
 
-        ground = platforms.create(750, game.world.height - 40, "bone");
-        ground.body.immovable = true;
+       ground = platforms.create(750, game.world.height - 40, "bone");
+       ground.body.immovable = true;
 
-        ground = platforms.create(1125, game.world.height - 40, "bone");
-        ground.body.immovable = true;
+       ground = platforms.create(1125, game.world.height - 40, "bone");
+       ground.body.immovable = true;
 
-        var ledge = platforms.create(Math.random()*1280, 550, "bone");
-        ledge.body.immovable = true;
+       var ledge = platforms.create(Math.random()*320, 550, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create(Math.random()*1280, 550, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create((Math.random()*320)+600, 550, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create(Math.random()*1280, 425, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create(Math.random()*320, 425, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create((Math.random()*640)+ 100, 425, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create((Math.random()*320)+600, 425, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create(Math.random()*1280, 300, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create(Math.random()*320, 300, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create(Math.random()*1280, 300, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create((Math.random()*320)+600, 300, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create(Math.random()*1280, 175, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create(Math.random()*320, 175, "bone");
+       ledge.body.immovable = true;
 
-        ledge = platforms.create((Math.random()*640)+ 100, 175, "bone");
-        ledge.body.immovable = true;
+       ledge = platforms.create((Math.random()*320)+ 600, 175, "bone");
+       ledge.body.immovable = true;
 
 
-        //set player
+       //set player
 
-        player = game.add.sprite(32, game.world.height - 100, "zombie");
+       player = game.add.sprite(32, game.world.height - 100, "zombie");
 
-        //enables physics for player
-        game.physics.arcade.enable(player);
+       //enables physics for player
+       game.physics.arcade.enable(player);
 
-        //gives player physics properties
-        player.body.bounce.y = .4;
+       //gives player physics properties
+       player.body.bounce.y = .2;
         player.body.gravity.y = 600;
         player.body.collideWorldBounds = true;
 
