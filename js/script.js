@@ -59,8 +59,8 @@
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         //sound play
-        // var music = game.add.audio("sound")
-        // music.play();
+        var music = game.add.audio("sound")
+        music.play();
 
         //scrolling background
         var intro = game.add.tileSprite(0, 0, 1280, 720, 'dirt');
@@ -182,7 +182,7 @@
         if ( game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
             jumpTimes ++
               if (jumpTimes <= 2){
-               player.body.velocity.y = -650;
+               player.body.velocity.y = -450;
               }
             }
 
@@ -207,7 +207,7 @@
       }
 
 
-     var timer = 60
+     var timer = 41
 
 
      var myInterval = setInterval(function() {
